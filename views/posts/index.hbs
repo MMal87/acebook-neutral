@@ -5,10 +5,16 @@
 <ul class="posts">
   {{#each posts}}
   <li>
-    <form action="/uploadphoto" enctype="multipart/form-data" method="POST">
-        <input type="file" name="myImage" accept="image/*">
-        <input type="submit" value="Upload Photo">
-    <a href="/posts/{{this._id}}">{{this.message}}</a>
+    <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
+    {{#if this.image_url}}
+    <a href="/posts/{{this._id}}">
+    <img src="/uploads/{{this.image_url}}">
+  
+    </a>
+    {{/if}}
+
+
+    <p>{{this.message}}</p>
     
     <button class="likeButtonTimeline" data-postid="{{this._id}}">Like</button>
     <span id="likesCount-{{this._id}}">{{this.likes.length}}</span> likes

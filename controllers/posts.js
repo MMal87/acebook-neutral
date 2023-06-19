@@ -42,6 +42,13 @@ const PostsController = {
       
     post.timestamp = new Date();
 
+    if (req.file) {
+      const image_url = req.file.filename;
+    
+
+      post.image_url = image_url
+    }
+
     post.save((err) => {
       if (err) {
         throw err;

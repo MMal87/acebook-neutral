@@ -1,6 +1,6 @@
 <form action='/sessions?_method=DELETE' method='POST'>
       <input type="submit" value="Log Out"></form>
-
+<img src="/uploads/{{post.image_url}}">
 <h1>{{ post.message }}</h1>
 <p>Author: {{ post.postAuthor.firstName }} {{ post.postAuthor.lastName }}</p>
 <p>Posted at: {{post.timestamp}}</p>
