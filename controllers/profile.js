@@ -4,24 +4,31 @@ const ProfileController = {
   Index: (req, res) => {
     const currentUser = req.session.user;
   
-    User.find({}, (err, allUsers) => {
+    User.find({}, async (err, allUsers) => {
       if (err) {
         throw err;
       }
   
+      // create a list of users who are friends
       const friends = currentUser.friends;
       const friends_names = allUsers.filter((user) =>
         friends.includes(user.email)
       );
-      const nonFriends = allUsers.filter(
+
+      // create a list of users who are not friends
+      let nonFriends = allUsers.filter(
         (user) =>
           !friends.includes(user.email) &&
           user.email !== currentUser.email
       );
+
+      console.log("current user friend req ", currentUser.friendRequests)
   
-      const friendRequests = allUsers.filter((user) =>
+      // create a list of users who have sent a friend request to current user
+      const friendRequests = await allUsers.filter((user) =>
         currentUser.friendRequests.includes(user.email)
       );
+
       console.log(`friendRequests: ${friendRequests}`)
       // console.log(allUsers)
    
@@ -38,6 +45,15 @@ const ProfileController = {
 
       console.log(`friend requests sent: ${friendRequestSent}`);
   
+      nonFriends = nonFriends.map((user) => {
+        return {
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          friendRequested: currentUser.sentFriendRequests.includes(user.email)
+        }
+      })
+
       res.render("profile/index", {
         friends_names: friends_names,
         nonFriends: nonFriends,
@@ -135,6 +151,7 @@ AddFriend: (req, res) => {
               throw err;
             }
 
+            req.session.user = currentUser
             req.session.friendRequestSent = friendEmail; // Update the session
             res.json({ message: "Friend request sent" });
           });
