@@ -13,9 +13,19 @@ const usersRouter = require("./routes/users");
 const profileRouter = require("./routes/profile");
 const commentsRouter = require("./routes/posts");
 const { AsyncLocalStorage } = require("async_hooks");
+const multer = require("multer")
 
 
 const app = express();
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+	cb(null, 'uploads')
+	},
+	filename: function (req, file, cb) {
+	cb(null, file.fieldname + '-' + Date.now())
+	}
+  })
+var upload = multer({ storage: storage })
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
