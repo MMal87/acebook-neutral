@@ -3,6 +3,7 @@
     </form>
 <h1>Timeline</h1>
 <ul class="posts">
+  
   {{#each posts}}
   <li>
     <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
@@ -20,6 +21,7 @@
     <span id="likesCount-{{this._id}}">{{this.likes.length}}</span> likes
   </li>
   <span class="time-ago">Posted {{timeAgo this.timestamp}}</span><br/>
+  
 
 {{/each}}
   {{!-- {{#each posts}}

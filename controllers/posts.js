@@ -106,8 +106,45 @@ const PostsController = {
 						: 0;
 
 				res.json({ likesCount });
-			});
-	},
-};
+				// likePost: (req, res) => {
+				// 	const postId = req.params.postId;
+				// 	const userId = req.session.user._id;
+
+				// 	// Find the post by ID in the database
+				// 	Post.findById(postId)
+				// 	  .then((post) => {
+				// 		if (!post) {
+				// 		  // If the post is not found, return an error message
+				// 		  return res.status(404).json({ error: "Post not found" });
+				// 		}
+
+				// 		const likedByUser = post.likes.includes(userId);
+
+				// 		if (likedByUser) {
+				// 		  // User has already liked the post, so return an error message
+				// 		  return res.status(400).json({ error: "User has already liked the post" });
+				// 		}
+ 
+				// 		// User has not liked the post, so add the like
+				// 		post.likes.push(userId);
+			
+				// 		return post.save();
+				// 	  })
+				// 	  .then((updatedPost) => {
+				// 		const likesCount = updatedPost.likes.length;
+
+				// 		res.json({ likesCount });
+				// 	  })
+				// 	  .catch((error) => {
+				// 		// Handle any errors that occurred during the process
+				// 		console.error(error);
+				// 		res.status(500).json({ error: "Internal server error" });
+				
+
+	});
+		},
+	}
+
+	
 
 module.exports = PostsController;
