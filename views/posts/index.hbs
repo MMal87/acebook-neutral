@@ -1,58 +1,44 @@
-<!doctype html>
-<html lang="en">
+<form action='/sessions?_method=DELETE' method='POST'>
+      <input type="submit" value="Log Out">
+    </form>
+<h1>Timeline</h1>
+<ul class="posts">
+  {{#each posts}}
+  <li>
+    <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Timeline</title>
-  <link rel="stylesheet" href="/stylesheets/posts.css">
-</head>
+    {{#if this.image.contentType}}
+      <a href="/posts/{{this._id}}">
+        <img src="/posts/{{this._id}}/image" width="500px">
+      </a>
+    {{/if}}
+    
+    
+    {{#if this.message}}
+    <a href="/posts/{{this._id}}">{{this.message}}</a>{{/if}}
+    <button class="likeButtonTimeline" data-postid="{{this._id}}">Like</button>
+    <span id="likesCount-{{this._id}}">{{this.likes.length}}</span> likes
+  </li>
+  <span class="time-ago">Posted {{timeAgo this.timestamp}}</span><br/>
 
-<body>
+{{/each}}
+  {{!-- {{#each posts}}
+  <li>
+    <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
+   <a href="/posts/{{this._id}}">
+      {{#if this.image.contentType}}
+        <img src="/posts/{{this._id}}/image"/>
+      {{/if}}
+    </a>
 
-  <div class="container-fluid px-0">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="sessions/new">
-          <img src="/images/logo.png" alt="Logo" width="100" height="40" class="d-inline-block align-text-top">
-
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          {{!-- <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-
-          </div> --}}
-            <form action='/sessions?_method=DELETE' method='POST'>
-    <input type="submit" value="Log Out">
-  </form>
-
-    <a href="../profile">My profile</a>
-
-
-        </div>
-      </div>
-    </nav>
-  </div>
-
-
-
-  <h1>Timeline</h1>
-  <ul class="posts">
-    {{#each posts}}
-    <li class="border">
-      <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
-      <a href="/posts/{{this._id}}">{{this.message}}</a>
-
-      <button class="likeButtonTimeline" data-postid="{{this._id}}">Like</button>
-      <span id="likesCount-{{this._id}}">{{this.likes.length}}</span> likes
-    </li>
-    <span class="time-ago">Posted {{timeAgo this.timestamp}}</span><br />
-    {{/each}}
-  </ul>
+    <a href="/posts/{{this._id}}">{{this.message}}</a>
+    
+    <button class="likeButtonTimeline" data-postid="{{this._id}}">Like</button>
+    <span id="likesCount-{{this._id}}">{{this.likes.length}}</span> likes
+  </li>
+  <span class="time-ago">Posted {{timeAgo this.timestamp}}</span><br/>
+  {{/each}} --}}
+</ul>
 
 
 
@@ -85,7 +71,4 @@
   </script>
 
 
-  <a class="new-post-link" href="/posts/new">New post</a>
-</body>
-
-</html>
+<a class="new-post-link" href="/posts/new">New post</a>
