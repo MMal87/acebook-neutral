@@ -3,7 +3,20 @@
     </form>
 <h1>Timeline</h1>
 <ul class="posts">
+  <ul class="posts">
   {{#each posts}}
+  <li>
+    <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
+    {{#if this.image.contentType}}
+    <a href="/posts/{{this._id}}">
+    <img src="/uploads/{{this._id}}">
+  
+    </a>
+    {{/if}}
+
+
+    <p>{{this.message}}</p>
+  {{!-- {{#each posts}}
   <li>
     <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
 
@@ -19,7 +32,7 @@
     <span id="likesCount-{{this._id}}">{{this.likes.length}}</span> likes
   </li>
   <span class="time-ago">Posted {{timeAgo this.timestamp}}</span><br/>
-{{/each}}
+{{/each}} --}}
   {{!-- {{#each posts}}
   <li>
     <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
@@ -35,7 +48,6 @@
   </li>
   <span class="time-ago">Posted {{timeAgo this.timestamp}}</span><br/>
   {{/each}} --}}
-</ul>
 
 
 <a href="../profile">My profile</a>
