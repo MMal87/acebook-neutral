@@ -157,6 +157,17 @@ const ProfileController = {
 			.catch((err) => {
 				throw err;
 			});
-	},
+
+		},
+
+		// addProfileImage: (req, res) => {
+
+		// }
+
+	
+	
 };
+
+
+
 module.exports = ProfileController;

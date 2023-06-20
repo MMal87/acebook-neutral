@@ -15,6 +15,7 @@ const { handlebars } = require("hbs");
 const moment = require("./public/javascripts/moment.min");
 const app = express();
 const upload = require("./multerConfig");
+const uploadProfile = require("./multerConfig");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -68,6 +69,7 @@ app.use("/:postId/comments", sessionChecker, commentsRouter);
 app.use("/:postId/like", sessionChecker, postsRouter);
 app.use("/posts/new", sessionChecker, postsRouter);
 app.use(upload.single("myImage"));
+app.use(uploadProfile.single("profileImage"));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
