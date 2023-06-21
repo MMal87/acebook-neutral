@@ -96,6 +96,33 @@ const PostsController = {
 			});
 	},
 
+	Delete: (req, res) => {
+		const postId = req.params.postId;
+		const email = req.session.user.email;
+	
+		// Find the post by ID and the post owner's email
+		Post.findOne({ _id: postId, "postAuthor.email": email })
+			.then((post) => {
+				if (!post) {
+					// If the post doesn't exist or the user is not the owner, return an error
+					return res.status(401).send("Unauthorized to delete this post");
+				}
+	
+				// Delete the post from the database
+				return post.remove()
+					.then(() => {
+						// Redirect back to the timeline
+						res.redirect("/posts");
+					});
+			})
+			.catch((err) => {
+				console.log(err);
+				// Handle any errors that occur during the deletion process
+				res.status(500).send("An error occurred while deleting the post");
+			});
+	},
+	
+
 	likePost: (req, res) => {
 		const postId = req.params.postId;
 		const userId = req.session.user._id;
