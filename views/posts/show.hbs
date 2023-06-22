@@ -93,22 +93,19 @@
   });
 </script>
 
+<ul class="comments">
+  {{#each post.comments}}
+ 
+  <span>{{ this.message }}</span>
+  <span>{{this.author}}</span>
+  <span>{{ timeAgo this.commentTime }}</span><br>
+  {{/each}}
+</ul>
 
-<div class="comments-container mt-4">
-  <form action="/posts/{{ post._id }}/comments" method="POST">
-    <textarea name="message" placeholder="Leave a comment"></textarea>
-    {{#if error}}
-      <p style="color: red;">{{ error }}</p> 
-    {{/if}}
-    <button type="submit">Submit</button>
-  </form>
-  <ul class="comments">
-    <p>Comments on your post:</p>
-    {{#each post.comments}}
-  
-    <span>{{ this.message }}</span>
-    <span>{{this.author}}</span>
-    <span>{{ timeAgo this.commentTime }}</span><br>
-    {{/each}}
-  </ul>
-</div>
+<form action="/posts/{{ post._id }}/comments" method="POST">
+  <textarea name="message" input="text" placeholder="Leave a comment"></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+
+
