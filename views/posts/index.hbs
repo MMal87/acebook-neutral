@@ -6,10 +6,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Timeline</title>
   <link rel="stylesheet" href="/stylesheets/posts.css">
+  <style>
+    body {
+      background-color: rgb(238, 240, 243);
+    }
+
+    #logout_button {
+      background-color: transparent;
+      border-width: 0;
+      font-family: inherit;
+      font-size: inherit;
+      font-style: inherit;
+      font-weight: inherit;
+      line-height: inherit;
+      padding: 0;
+      color: rgb(36, 90, 247);
+      margin-right: 1rem;
+    }
+
+    .post-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 550px;
+      padding: 0 25px;
+    }
+
+    .likeButtonTimeline {
+      font-size: 0.8rem;
+      padding: 2px 6px;
+    }
+
+    .likes{
+      width: 160px;
+    }
+  </style>
 </head>
 
 <body>
-
   <div class="container-fluid px-0">
     <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
       <div class="container-fluid">
@@ -21,17 +55,14 @@
           aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <a href="../profile" class="text-decoration-none">My profile</a>
+          <a class="new-post-link text-decoration-none ps-4" href="/posts/new">New post</a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          {{!-- <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-
-          </div> --}}
+          <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup">
             <form action='/sessions?_method=DELETE' method='POST'>
-    <input type="submit" value="Log Out">
-  </form>
-
-    <a href="../profile">My profile</a>
-
+              <input id="logout_button" type="submit" value="Log Out">
+            </form>
+          </div>
 
         </div>
       </div>
@@ -40,29 +71,47 @@
 
 
 
-  <h1>Timeline</h1>
-{{#each posts}}
-  <li>
-    <p>{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
+  <h1 class="text-center">Timeline</h1>
 
-    {{#if this.image.contentType}}
-      <a href="/posts/{{this._id}}">
-        <img src="/posts/{{this._id}}/image" width="500px">
-      </a>
-    {{/if}}
-    
-    
-    {{#if this.message}}
-    
-    <a href="/posts/{{this._id}}">{{this.message}}</a>{{/if}}
-    <button class="likeButtonTimeline" data-postid="{{this._id}}">Like</button>
-    <span id="likesCount-{{this._id}}">{{this.likes.length}}</span> likes
-  </li>
-  <span class="time-ago">Posted {{timeAgo this.timestamp}}</span><br/>
+  {{#each posts}}
+  <div class="timeline-container d-flex justify-content-center">
+    <div class="my-3 px-4">
+      <div class="post-container border rounded shadow-sm bg-light-subtle">
+        <p class="mb-0 pt-2">{{this.postAuthor.firstName}} {{this.postAuthor.lastName}} posted:</p>
 
-{{/each}}
 
-</ul>
+
+        {{#if this.message}}
+
+        <a href="/posts/{{this._id}}" class="text-decoration-none">{{this.message}}</a>
+        {{/if}}
+        {{#if this.image.contentType}}
+        <a href="/posts/{{this._id}}">
+          <img class="rounded shadow" src="/posts/{{this._id}}/image" width="500px">
+        </a>
+        {{/if}}
+
+        <div class="row d-flex justify-content-between  align-items-center py-2">
+
+            <div class="likes">
+              <button class="likeButtonTimeline btn btn-outline-primary shadow-sm pe-2"
+                data-postid="{{this._id}}">Like</button>
+              <span id="likesCount-{{this._id}}">{{this.likes.length}}</span> likes
+            </div>
+            <div class="likes">
+              <span class="time-ago py-2">Posted {{timeAgo this.timestamp}}</span><br />
+            </div>
+
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  {{/each}}
+
+
 
 
 
@@ -95,7 +144,7 @@
   </script>
 
 
-  <a class="new-post-link" href="/posts/new">New post</a>
+
 </body>
 
 </html>
