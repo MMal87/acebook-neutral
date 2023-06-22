@@ -71,6 +71,7 @@
 
   <button class="likeButton btn btn-outline-primary shadow-sm" data-postid="{{ post._id }}">Like</button>
   <span id="likesCount-{{ post._id }}">{{ post.likes.length }}</span> likes
+  
 </div>
 
 <script>
@@ -93,6 +94,7 @@
   });
 </script>
 
+
 <ul class="comments">
   {{#each post.comments}}
  
@@ -106,6 +108,8 @@
   <textarea name="message" input="text" placeholder="Leave a comment"></textarea>
   <button type="submit">Submit</button>
 </form>
+
+
 
 
 

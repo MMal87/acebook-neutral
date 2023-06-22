@@ -34,7 +34,7 @@ router.get("/:postId/image", PostsController.getImage);
 router.get("/new", PostsController.New);
 router.post("/:postId/comments", CommentController.CreateComment);
 router.get("/:postId", PostsController.Show);
-router.post("/:postId", PostsController.Delete);
+
 
 
 module.exports = router;
