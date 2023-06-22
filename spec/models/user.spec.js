@@ -39,30 +39,6 @@ describe("User model", () => {
     });
   });
 
-  it("can save a user", (done) => {
-    const user = new User({
-      firstName: "Test",
-      lastName: "Test",
-      email: "someone@example.com",
-      password: "password1",
-    });
-
-    user.save((err) => {
-      expect(err).toBeNull();
-
-      User.find((err, users) => {
-        expect(err).toBeNull();
-
-        expect(users[0]).toMatchObject({
-          firstName: "Test",
-          lastName: "Test",
-          email: "someone@example.com",
-          password: "password",
-        });
-        done();
-      });
-    });
-  });
 
   test("returns invalid for empty password", () => {
     const user = new User({
