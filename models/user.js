@@ -70,7 +70,6 @@ const usersData = [
 		email: "alex@alex.com",
 		password: "$2b$10$1xNFZD.MzQ50PA79QMs/TOhCQAa1wnih/IufG0AQ0lRKxfKg.ed7W", // password1
 		friends: ["joe@joe.com"],
-
 	},
 	{
 		firstName: "Joe",
@@ -79,8 +78,6 @@ const usersData = [
 		password: "$2b$10$X1zkDaZMR7.s9PTS/IzK5eCkBkDQxdcxJa90OrwgGiPjjQ00CK.Z6", // password1
 		friends: ["alex@alex.com"],
 	},
-
-
 	{
 		firstName: "Chris",
 		lastName: "Robinson",
