@@ -18,23 +18,30 @@
       margin-right: 1rem;
     }
 
-    .post-container, .comments-container {
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .likeButton {
+    .likeButton, .submitButton {
       font-size: 1.2rem;
       padding: 2px 6px;
+      margin-right: 6px;
     }
-    
-    .post-image {
-      max-width: 1000px;
+
+    .post-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 10px;
       width: 100%;
-      height: auto;
     }
+
+  .time-comment {
+    font-size: 0.75rem;
+    font-style: italic;
+    width: 800px
+  }
+
+  hr {
+    width: 96%;
+    margin-bottom: 40px;
+  }
 </style>
 
 <div class="container-fluid px-0">
@@ -60,18 +67,39 @@
   </nav>
 </div>
 
-<div class="post-container mt-4">
-  <p> {{ post.postAuthor.firstName }} {{ post.postAuthor.lastName }} posted:</p>
-  <h1>{{ post.message }}</h1>
+<div class="post-container my-5 w-50 mx-auto border rounded shadow-sm bg-light-subtle p-4">
+  <p>{{ post.postAuthor.firstName }} {{ post.postAuthor.lastName }} posted:</p>
+  <h1 class="mb-4">{{ post.message }}</h1>
   {{#if post.image.data}}
-    <img src="/posts/{{post._id}}/image" alt="PostImage">
+    <img src="/posts/{{post._id}}/image" alt="PostImage" class="mb-4 mw-100">
   {{/if}}
 
-  <p>Posted at: {{post.timestamp}}</p>
+  <div class="row mb-4">
+    <div class="col g-col-10 text-start">
+      <button class="likeButton btn btn-outline-primary shadow-sm px-4" data-postid="{{ post._id }}">Like</button>
+      <span id="likesCount-{{ post._id }}">{{ post.likes.length }}</span> likes
+    </div>
+    <p class="col">Posted at: {{post.timestamp}}</p>
 
-  <button class="likeButton btn btn-outline-primary shadow-sm" data-postid="{{ post._id }}">Like</button>
-  <span id="likesCount-{{ post._id }}">{{ post.likes.length }}</span> likes
+    <form action="/posts/{{ post._id }}/comments" method="POST">
+      <textarea class="w-100 mb-2 p-2" name="message" placeholder="Leave a comment"></textarea>
+      {{#if error}}
+        <p style="color: red;">{{ error }}</p> 
+      {{/if}}
+      <button class="submitButton btn btn-outline-primary shadow-sm px-4 mr-3" type="submit">Submit</button>
+    </form>
+  </div>
+
+  <ul class="comments post-container border rounded shadow-sm bg-light-subtle pt-4">
+    <h2 class="mb-4">Comments on your post:</h2>
+    {{#each post.comments}}
   
+    <span>{{ this.message }}</span>
+    <span>{{this.author}}</span>
+    <span class="time-comment">{{ timeAgo this.commentTime }}</span><br>
+    <hr>
+    {{/each}}
+  </ul>
 </div>
 
 <script>
@@ -95,21 +123,21 @@
 </script>
 
 
-<ul class="comments">
-  {{#each post.comments}}
- 
-  <span>{{ this.message }}</span>
-  <span>{{this.author}}</span>
-  <span>{{ timeAgo this.commentTime }}</span><br>
-  {{/each}}
-</ul>
-
-<form action="/posts/{{ post._id }}/comments" method="POST">
-  <textarea name="message" input="text" placeholder="Leave a comment"></textarea>
-  <button type="submit">Submit</button>
-</form>
-
-
-
-
-
+<div class="comments-container mt-4">
+  <form action="/posts/{{ post._id }}/comments" method="POST">
+    <textarea name="message" placeholder="Leave a comment"></textarea>
+    {{#if error}}
+      <p style="color: red;">{{ error }}</p> 
+    {{/if}}
+    <button type="submit">Submit</button>
+  </form>
+  <ul class="comments">
+    <p>Comments on your post:</p>
+    {{#each post.comments}}
+  
+    <span>{{ this.message }}</span>
+    <span>{{this.author}}</span>
+    <span>{{ timeAgo this.commentTime }}</span><br>
+    {{/each}}
+  </ul>
+</div>
