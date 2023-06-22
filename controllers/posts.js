@@ -102,6 +102,7 @@ const PostsController = {
 			});
 	},
 
+
 	likePost: (req, res) => {
 		const postId = req.params.postId;
 		const userId = req.session.user._id;
