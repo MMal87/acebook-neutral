@@ -86,19 +86,32 @@
 
 <div class="content-container">
   <p class="new-post-heading">Create a new post:</p>
+ 
   <form id="new-post-form" action="/posts" method="post" enctype="multipart/form-data">
-    <div class="file-upload-container">
-      <label for="file" class="SubmitButton btn btn-outline-primary shadow-sm file-input-label">
-        Upload an image
-        <input type="file" name="image" id="file" style="display: none;">
-      </label>
-    </div>
-    <label for="message" class="post-label" >Enter text below:</label>
-    <textarea id="message" name="message" class="text-box" placeholder="Enter your post here"></textarea>
-    <button class="SubmitButton btn btn-outline-primary shadow-sm" type="submit">Submit</button>
-  </form>
+  <input type="file" name="image" id="file" class="SubmitButton btn btn-outline-primary shadow-sm file-input-label" >
+  <label for="message">Enter text below:</label>
+  <textarea id="message" name="message" class="text-box" placeholder="Enter your post here"></textarea>
+
+  <input type="submit" class="SubmitButton btn btn-outline-primary shadow-sm file-input-label">
+</form>
+
 
   {{#if error}}
   <p style="color: red;">{{error}}</p>
   {{/if}}
 </div>
+
+ <script>
+    const fileInput = document.getElementById('file');
+    const uploadStatus = document.getElementById('upload-status');
+
+    fileInput.addEventListener('change', () => {
+      if (fileInput.files && fileInput.files.length > 0) {
+        uploadStatus.style.display = 'block'; // Show the message
+      } else {
+        uploadStatus.style.display = 'none'; // Hide the message
+      }
+    });
+  </script>
+
+  </html
